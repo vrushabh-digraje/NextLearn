@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Users, UserCheck, ShieldAlert, Trash2, Shield, UserMinus, ShieldCheck, Loader } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const AdminDashboard = () => {
   const { user, token } = useContext(AuthContext);
@@ -21,7 +22,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/users', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/users/${userId}/role`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/users/${userId}/role`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ const AdminDashboard = () => {
 
     if (window.confirm('WARNING: Are you sure you want to permanently delete this user? All their enrollment records will remain but their login credentials will be removed.')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/users/${userId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/auth/users/${userId}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });

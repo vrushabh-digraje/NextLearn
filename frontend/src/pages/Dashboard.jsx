@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import CourseCard from '../components/CourseCard';
 import { BookOpen, Award, CheckCircle, Clock, Plus, Loader, Layers, Trash2 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const Dashboard = () => {
   const { user, token } = useContext(AuthContext);
@@ -31,7 +32,7 @@ const Dashboard = () => {
 
   const fetchEnrollments = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/courses/my-enrollments', {
+      const response = await fetch(`${API_BASE_URL}/api/courses/my-enrollments`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.ok) {
@@ -71,7 +72,7 @@ const Dashboard = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/courses', {
+      const response = await fetch(`${API_BASE_URL}/api/courses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

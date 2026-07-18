@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { MessageSquare, Send, X, Bot, Sparkles, Trash2 } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const ChatWidget = ({ courseId, lessonId }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ const ChatWidget = ({ courseId, lessonId }) => {
 
   const fetchChatHistory = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/chat/${courseId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/chat/${courseId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -54,7 +55,7 @@ const ChatWidget = ({ courseId, lessonId }) => {
     setMessages((prev) => [...prev, tempUserMsg]);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/chat/${courseId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/chat/${courseId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ const ChatWidget = ({ courseId, lessonId }) => {
   const clearChat = async () => {
     if (window.confirm('Are you sure you want to clear this chat history?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/chat/${courseId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/chat/${courseId}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });

@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import CourseCard from '../components/CourseCard';
 import PaymentModal from '../components/PaymentModal';
+import { API_BASE_URL } from '../config';
 import { 
   Search, Globe, Terminal, Database, Shield, 
   BookOpen, AlertCircle, Star 
@@ -46,7 +47,7 @@ const Courses = () => {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/courses');
+      const response = await fetch(`${API_BASE_URL}/api/courses`);
       if (!response.ok) throw new Error('Failed to load courses');
       const data = await response.json();
       setCourses(data);
@@ -61,7 +62,7 @@ const Courses = () => {
 
   const fetchMyEnrollments = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/courses/my-enrollments', {
+      const response = await fetch(`${API_BASE_URL}/api/courses/my-enrollments`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.ok) {
@@ -88,7 +89,7 @@ const Courses = () => {
   const handlePaymentSuccess = async () => {
     if (!selectedCourseForPayment) return;
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/${selectedCourseForPayment._id}/enroll`, {
+      const response = await fetch(`${API_BASE_URL}/api/courses/${selectedCourseForPayment._id}/enroll`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });

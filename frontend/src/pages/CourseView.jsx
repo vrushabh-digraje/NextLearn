@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import ChatWidget from '../components/ChatWidget';
 import PaymentModal from '../components/PaymentModal';
+import { API_BASE_URL } from '../config';
 import { BookOpen, CheckCircle2, Circle, ArrowLeft, ArrowRight, Play, FileText, Check } from 'lucide-react';
 
 const CourseView = () => {
@@ -26,7 +27,7 @@ const CourseView = () => {
 
   const fetchCourseDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/${id}`);
+      const response = await fetch(`${API_BASE_URL}/api/courses/${id}`);
       if (!response.ok) throw new Error('Course not found');
       const data = await response.json();
       setCourse(data);
@@ -39,7 +40,7 @@ const CourseView = () => {
 
   const fetchEnrollment = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/courses/my-enrollments', {
+      const response = await fetch(`${API_BASE_URL}/api/courses/my-enrollments`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.ok) {
@@ -62,7 +63,7 @@ const CourseView = () => {
 
   const handlePaymentSuccess = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/${id}/enroll`, {
+      const response = await fetch(`${API_BASE_URL}/api/courses/${id}/enroll`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -82,7 +83,7 @@ const CourseView = () => {
     if (!enrollment) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/courses/${id}/progress`, {
+      const response = await fetch(`${API_BASE_URL}/api/courses/${id}/progress`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
