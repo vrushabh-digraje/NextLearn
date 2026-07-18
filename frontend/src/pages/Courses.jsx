@@ -151,7 +151,7 @@ const Courses = () => {
         </p>
       </div>
 
-      <div style={{
+      <div className="courses-catalog-container" style={{
         display: 'grid',
         gridTemplateColumns: '260px 1fr',
         gap: '40px',

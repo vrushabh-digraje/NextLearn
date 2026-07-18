@@ -50,7 +50,7 @@ const Footer = () => {
   };
 
   return (
-    <footer style={{
+    <footer className="app-footer" style={{
       background: 'linear-gradient(180deg, #0b1a12 0%, #050d09 100%)',
       color: '#94a3b8',
       padding: '60px 40px 40px 40px',

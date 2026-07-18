@@ -571,3 +571,93 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(138, 28, 20, 0.05) !important;
   color: var(--danger) !important;
 }
+
+/* ==========================================================================
+   Mobile Responsive Media Queries
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-section {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    text-align: center !important;
+  }
+  .hero-section > div {
+    text-align: center !important;
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Global Page Container Overrides */
+  .animate-slide-up {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Navigation Bar overrides */
+  nav {
+    padding: 12px 16px !important;
+  }
+  .nav-controls-desktop {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: block !important;
+  }
+
+  /* Footer Layout overrides */
+  .app-footer {
+    padding: 40px 16px 30px 16px !important;
+  }
+
+  /* Courses Catalog Room */
+  .courses-catalog-container {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Course Details Room */
+  .course-details-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 20px !important;
+  }
+
+  /* Split Workspace learning room */
+  .course-study-room {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .course-study-room > .glass-panel {
+    height: auto !important;
+    position: static !important;
+    max-height: 280px !important;
+  }
+
+  /* Study Target Planner Grid */
+  .planner-container-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 24px !important;
+  }
+
+  /* Course Builder Dashboard */
+  .builder-meta-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Headings size scaling */
+  h1 { font-size: 2rem !important; }
+  h2 { font-size: 1.6rem !important; }
+  h3 { font-size: 1.25rem !important; }
+
+  /* Course Builder Lesson details */
+  .builder-lesson-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}

@@ -153,7 +153,7 @@ const CourseView = () => {
     <div style={{ padding: '0 40px 60px 40px' }} className="animate-slide-up">
       {/* Detail Preview Panel (Non-Enrolled Users) */}
       {!isEnrolled ? (
-        <div className="glass-panel animate-slide-up" style={{
+        <div className="glass-panel animate-slide-up course-details-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1.5fr 1fr',
           gap: '40px',
@@ -214,7 +214,7 @@ const CourseView = () => {
         </div>
       ) : (
         /* Immersive Split Course Room (Enrolled Users) */
-        <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '30px', marginTop: '20px' }}>
+        <div className="course-study-room" style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '30px', marginTop: '20px' }}>
           
           {/* Sidebar Navigation */}
           <div className="glass-panel" style={{ padding: '20px', height: 'calc(100vh - 180px)', overflowY: 'auto', position: 'sticky', top: '120px' }}>

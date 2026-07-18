@@ -595,7 +595,7 @@ const totalStudyHours = studyHours * targetWeeks;
       )}
 
       {/* Student-Centric Two-Column Hero */}
-      <section style={{
+      <section className="hero-section" style={{
         display: 'grid',
         gridTemplateColumns: '1.2fr 1fr',
         gap: '40px',
@@ -830,7 +830,7 @@ const totalStudyHours = studyHours * targetWeeks;
           </p>
         </div>
 
-        <div className="glass-panel" style={{
+        <div className="glass-panel planner-container-grid" style={{
           padding: '40px',
           width: '100%',
           maxWidth: '700px',

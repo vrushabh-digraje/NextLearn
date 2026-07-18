@@ -158,7 +158,7 @@ const Dashboard = () => {
             <Layers color="var(--primary)" size={24} /> Course Curriculum Builder
           </h2>
           <form onSubmit={handleCreateCourse} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 0.8fr', gap: '20px' }}>
+            <div className="builder-meta-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 0.8fr', gap: '20px' }}>
               <div className="input-group">
                 <label className="input-label">Course Title*</label>
                 <input 
@@ -248,7 +248,7 @@ const Dashboard = () => {
                       </button>
                     )}
                     <h4 style={{ fontSize: '0.95rem', color: 'var(--primary)', marginBottom: '12px' }}>Lesson #{idx + 1}</h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                    <div className="builder-lesson-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '15px', marginBottom: '15px' }}>
                       <div className="input-group" style={{ marginBottom: 0 }}>
                         <label className="input-label">Lesson Title*</label>
                         <input 

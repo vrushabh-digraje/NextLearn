@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { 
   GraduationCap, LogOut, LayoutDashboard, User as UserIcon, 
-  ChevronDown, Globe, Terminal, Database, Shield, BookOpen 
+  ChevronDown, Globe, Terminal, Database, Shield, BookOpen,
+  Menu, X
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -14,6 +15,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showCatalog, setShowCatalog] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Monitor page scroll to shrink Navbar and increase blur opacity
   useEffect(() => {
@@ -89,7 +91,7 @@ const Navbar = () => {
       </Link>
 
       {/* Nav Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+      <div className="nav-controls-desktop" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
         
         {/* Interactive Explore Catalog Dropdown */}
         <div 
@@ -279,6 +281,109 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {/* Mobile Hamburger Toggle */}
+      <button 
+        className="mobile-menu-btn" 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        style={{
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          color: 'var(--text-primary)',
+          padding: '8px',
+          zIndex: 101
+        }}
+      >
+        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      {/* Mobile Menu Drawer */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu-drawer glass-panel animate-slide-up" style={{
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          right: 0,
+          background: '#ffffff',
+          borderBottom: '1px solid var(--border-color)',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          zIndex: 99,
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            Explore Categories
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <button onClick={() => { setIsMobileMenuOpen(false); handleCategoryClick('Web Development'); }} className="btn btn-secondary" style={{ padding: '8px', fontSize: '0.8rem', justifyContent: 'flex-start', gap: '6px' }}>
+              <Globe size={14} color="var(--primary)" /> Web Dev
+            </button>
+            <button onClick={() => { setIsMobileMenuOpen(false); handleCategoryClick('Data Science'); }} className="btn btn-secondary" style={{ padding: '8px', fontSize: '0.8rem', justifyContent: 'flex-start', gap: '6px' }}>
+              <Database size={14} color="var(--primary)" /> Data Science
+            </button>
+            <button onClick={() => { setIsMobileMenuOpen(false); handleCategoryClick('Artificial Intelligence'); }} className="btn btn-secondary" style={{ padding: '8px', fontSize: '0.8rem', justifyContent: 'flex-start', gap: '6px' }}>
+              <Terminal size={14} color="var(--primary)" /> AI
+            </button>
+            <button onClick={() => { setIsMobileMenuOpen(false); handleCategoryClick('Cybersecurity'); }} className="btn btn-secondary" style={{ padding: '8px', fontSize: '0.8rem', justifyContent: 'flex-start', gap: '6px' }}>
+              <Shield size={14} color="var(--primary)" /> Security
+            </button>
+          </div>
+
+          <div style={{ height: '1px', background: 'var(--border-color)', margin: '4px 0' }} />
+
+          <Link to="/courses" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1rem', fontWeight: '600', textDecoration: 'none', color: 'var(--text-primary)' }}>
+            Courses
+          </Link>
+          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1rem', fontWeight: '600', textDecoration: 'none', color: 'var(--text-primary)' }}>
+            About Us
+          </Link>
+          <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} style={{ fontSize: '1rem', fontWeight: '600', textDecoration: 'none', color: 'var(--text-primary)' }}>
+            Contact Us
+          </Link>
+
+          <div style={{ height: '1px', background: 'var(--border-color)', margin: '4px 0' }} />
+
+          {user ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{
+                  width: '28px', height: '28px', borderRadius: '50%', background: 'var(--primary-glow)', border: '1px solid var(--border-color)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', fontWeight: '700', fontSize: '0.8rem'
+                }}>
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: '700' }}>{user.name}</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{user.email}</div>
+                </div>
+              </div>
+              <Link to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-secondary" style={{ justifyContent: 'center' }}>
+                Dashboard
+              </Link>
+              {user.role === 'admin' && (
+                <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-secondary" style={{ justifyContent: 'center' }}>
+                  Admin Panel
+                </Link>
+              )}
+              <button onClick={() => { setIsMobileMenuOpen(false); logout(); }} className="btn btn-secondary" style={{ color: 'var(--danger)', borderColor: 'rgba(138, 28, 20, 0.2)', justifyContent: 'center' }}>
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <Link to="/auth?mode=login" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-secondary" style={{ flex: 1, padding: '10px', justifyContent: 'center' }}>
+                Log In
+              </Link>
+              <Link to="/auth?mode=register" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-primary" style={{ flex: 1, padding: '10px', justifyContent: 'center' }}>
+                Sign Up
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
     </nav>
   );
 };
